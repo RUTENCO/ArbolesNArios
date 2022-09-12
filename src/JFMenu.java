@@ -249,18 +249,21 @@ public class JFMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    
 
     private void btnconstuirArbolActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnconstuirArbolActionPerformed
 
         String respuesta = JOptionPane
                 .showInputDialog(" Ingrese hilera de paréntesis izquierdos, átomos, comas\n y paréntesis " +
                         "derechos.");
+        
         if(respuesta == null){
             return;
         }
                         
         try {
-            A = Arboles.consArbolLg(respuesta);
+            A = Arboles.consArbolLg(respuesta); //si no se encuentra un error se construira el arbol de lo contario se mostrar por pantalla el error encontrado
             printArea.setText(A.toString());
         } catch (Exception e) {
 
@@ -277,9 +280,9 @@ public class JFMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, " No se ha construido un Arbol", "ADVERTENCIA",
                     JOptionPane.WARNING_MESSAGE);
         } else {
-            printArea.setText("");
+            printArea.setText(""); 
             this.setVisible(false);
-            new JFmostrarArbol().setVisible(true);
+            new JFmostrarArbol().setVisible(true); //mientras haya un arbol construido se invocara al frame "JFmostrararbol" donde podra escojer como desea ver el arbol
         }
     }// GEN-LAST:event_btnmostrarArbolActionPerformed
 
@@ -289,7 +292,7 @@ public class JFMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, " No se ha construido un Arbol", "ADVERTENCIA",
                     JOptionPane.WARNING_MESSAGE);
         } else {
-            int altura = A.getHeight();
+            int altura = A.getHeight(); //se incoca el metodo que calcula la altura
             JOptionPane.showMessageDialog(null, "La altura del Arbol es : " + altura);
         }
 
@@ -301,7 +304,7 @@ public class JFMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, " No se ha construido un Arbol", "ADVERTENCIA",
                     JOptionPane.WARNING_MESSAGE);
         } else {
-            int grado = A.getDegreeNonRecursive();
+            int grado = A.getDegreeNonRecursive(); //se invoca el metodo que calcula el grado
             JOptionPane.showMessageDialog(null, "El grado del Arbol es : " + grado);
         }
 
@@ -316,10 +319,10 @@ public class JFMenu extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE);
         } else {
             registro = JOptionPane.showInputDialog("Ingrese un registro del Arbol");
-            registro = registro.toLowerCase();
+            registro = registro.toLowerCase(); //se ignora las mayusculas y minusculas
 
             try {
-                int gradoR = A.degreeOf(registro);
+                int gradoR = A.degreeOf(registro); //se calcula el grado del registro si el registro no se encuentra arroja un mensaje de error
                 JOptionPane.showMessageDialog(null, "El grado de " + registro + " es : " + gradoR);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -334,7 +337,7 @@ public class JFMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, " No se ha construido un Arbol", "ADVERTENCIA",
                     JOptionPane.WARNING_MESSAGE);
         } else {
-            int hojas = A.countLeafs2();
+            int hojas = A.countLeafs2(); //invoca el metodo de de contar hojas
             JOptionPane.showMessageDialog(null, "El numero de hojas del arbol es : " + hojas);
         }
     }// GEN-LAST:event_btnnumeroHojasActionPerformed
@@ -348,10 +351,10 @@ public class JFMenu extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE);
         } else {
             registro = JOptionPane.showInputDialog("Ingrese un registro del Arbol");
-            registro = registro.toLowerCase();
+            registro = registro.toLowerCase(); //se ignora las mayusculas y minusculas
 
             try {
-                int nivel = A.levelOf(registro);
+                int nivel = A.levelOf(registro); //se calcula el nivel del dato, si el dato no se encuentrar arroja un mensaje de error
                 JOptionPane.showMessageDialog(null, "El nivel de " + registro + " es: " + nivel);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -371,12 +374,12 @@ public class JFMenu extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE);
         } else {
             registro = JOptionPane.showInputDialog("Ingrese un registro del Arbol");
-            registro = registro.toLowerCase();
+            registro = registro.toLowerCase(); //se ignora las mayusculas y minusculas
 
-            if (A.find(registro) == null) {
+            if (A.find(registro) == null) { //se busca el dato, si no esta muestra un mensaje de error
                 JOptionPane.showMessageDialog(null, " Registro no encontrado ", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                b = A.getAncestors(A.find(registro));
+                b = A.getAncestors(A.find(registro)); // se invoca el metodo de los ancestros del dato
                 JOptionPane.showMessageDialog(null, "Los Ancestros de " + registro + " son: " + b.toString());
             }
 
