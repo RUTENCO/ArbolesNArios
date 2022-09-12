@@ -205,8 +205,6 @@ public class JFMenu extends javax.swing.JFrame {
         jPanel1.setBackground(java.awt.Color.black);
         jPanel1.setPreferredSize(new java.awt.Dimension(700, 340));
 
-        printArea.setBackground(new java.awt.Color(255, 0, 51));
-        printArea.setBackground(Color.gray);
         printArea.setBackground(new java.awt.Color(128, 128, 128));
         printArea.setColumns(20);
         printArea.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
