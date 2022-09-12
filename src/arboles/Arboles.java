@@ -19,7 +19,7 @@ public class Arboles {
     public static void validateString(String arbolStr, boolean esBinario) throws Exception {
 
         if (arbolStr == null) {
-            throw new NullPointerException();
+            throw new NullPointerException("arbolStr cannot be null");
         }
 
         if (arbolStr.length() == 0) {

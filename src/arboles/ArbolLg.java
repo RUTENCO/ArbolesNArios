@@ -180,6 +180,11 @@ public class ArbolLg extends Lg implements Arbol {
         // globalIdx será la continuación en el string del arbol padre que contiene
         // este arbol
         globalIdx.set(charIdx);
+        if (A == null && atomo.trim().length() > 0) {
+
+            A = new ArbolLg(new NodoLg(0, atomo.trim(), null));
+            
+        }
 
         return A;
 

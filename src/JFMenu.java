@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
 
@@ -205,6 +206,7 @@ public class JFMenu extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(700, 340));
 
         printArea.setBackground(new java.awt.Color(255, 0, 51));
+        printArea.setBackground(Color.gray);
         printArea.setColumns(20);
         printArea.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         printArea.setRows(5);
@@ -254,6 +256,10 @@ public class JFMenu extends javax.swing.JFrame {
         String respuesta = JOptionPane
                 .showInputDialog(" Ingrese hilera de paréntesis izquierdos, átomos, comas\n y paréntesis " +
                         "derechos.");
+        if(respuesta == null){
+            return;
+        }
+                        
         try {
             A = Arboles.consArbolLg(respuesta);
             printArea.setText(A.toString());
