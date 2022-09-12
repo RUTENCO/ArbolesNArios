@@ -135,6 +135,7 @@ public class JFmostrarArbol extends javax.swing.JFrame {
 
         f.setVisible(true);
 
+        //se validan las opciones de mostrar el arbol en sus diferentes formas
         if (checkHilera.isSelected() && checkArbol.isSelected() && checkLista.isSelected()) {
             f.printArea.setText(JFMenu.A.toString() + "\n\n" + JFMenu.A.treeRepr(0) + "\n\n" + JFMenu.A.lgRepr(0));
             this.setVisible(false);
@@ -162,7 +163,7 @@ public class JFmostrarArbol extends javax.swing.JFrame {
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnregresarActionPerformed
 
         this.setVisible(false);
-        f.setVisible(true);
+        f.setVisible(true);// se regresa a la parte inicial del menu
     }// GEN-LAST:event_btnregresarActionPerformed
 
     /**
