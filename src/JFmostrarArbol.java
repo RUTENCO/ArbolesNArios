@@ -162,7 +162,7 @@ public class JFmostrarArbol extends javax.swing.JFrame {
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnregresarActionPerformed
 
         this.setVisible(false);
-        f.setVisible(false);
+        f.setVisible(true);
     }// GEN-LAST:event_btnregresarActionPerformed
 
     /**
