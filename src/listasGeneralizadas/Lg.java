@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import listasLigadas.listas.LSL;
+import listasLigadas.LSL;
 import nodos.NodoLg;
 
 public class Lg extends LSL {
@@ -189,51 +189,49 @@ public class Lg extends LSL {
      * @param parentLine Índice de la línea la linea de la lista que debe apuntar
      *                   hacía está sublista. (Esto se usa para llamar al método de
      *                   forma recursiva)
-     * @param fieldWidth Ancho de los campos de los nodos.
+     * @param fieldWidth Ancho de los campos de los nodos. Si
+     *                   {@code fieldWidth == 0} cada nodo calculará su propio
+     *                   tamaño según su contenido.
      */
     protected void consLgRepr(List<StringBuilder> lines, int spacing, int parentLine, int fieldWidth) {
 
         if (lines == null)
             return;
 
+        List<StringBuilder> nodoXRepr;
         StringBuilder topLine, line, bottomLine;
         topLine = new StringBuilder(" ".repeat(spacing));
         line = new StringBuilder(" ".repeat(spacing));
         bottomLine = new StringBuilder(" ".repeat(spacing));
 
         Stack<NodoLg> nodosStack = new Stack<NodoLg>();
-        Stack<Integer> numNodos = new Stack<Integer>();
+        Stack<Integer> nodoSpacing = new Stack<Integer>();
         NodoLg nodoX = (NodoLg) getPrimerNodo();
-        int numNodo = 0;
-
-        String topNodeRepr = ("┬" + "─".repeat(fieldWidth)).repeat(3);
-        topNodeRepr = topNodeRepr.replaceFirst("┬", "┌") + "┐";
-
-        String bottomNodeRepr = ("┴" + "─".repeat(fieldWidth)).repeat(3);
-        bottomNodeRepr = bottomNodeRepr.replaceFirst("┴", "└") + "┘";
 
         Lg subLg;
+
+        int spacingX = spacing;
 
         // └ ┘ ┌ ┐ ─ │ ┼ ┴ ┬ ┤ ├
         while (nodoX != null) {
 
+            nodoXRepr = nodoX.nodeRepr(false, fieldWidth);
+            final int w = (nodoXRepr.get(0).length() - 4) / 3;
+
             if (nodoX.getSw() == 1) {
 
                 nodosStack.push(nodoX);
-                numNodos.push(numNodo);
+                nodoSpacing.push(spacingX + 3 + w * 2);
 
             }
 
-            topLine.append("  ").append(topNodeRepr);
-            line.append(String.format("%s>│" + ("%" + fieldWidth + "s│").repeat(3),
-                    nodoX == getPrimerNodo() ? "└" : "─",
-                    nodoX.getSw(),
-                    nodoX.getSw() == 0 ? nodoX.getDato() : " ",
-                    nodoX == getUltimoNodo() ? "¬" : " "));
-            bottomLine.append("  ").append(bottomNodeRepr);
+            spacingX += 2 + nodoXRepr.get(0).length();
+
+            topLine.append("  ").append(nodoXRepr.get(0));
+            line.append(String.format("%s>".concat(nodoXRepr.get(1).toString()), nodoX == getPrimerNodo() ? "└" : "─"));
+            bottomLine.append("  ").append(nodoXRepr.get(2));
 
             nodoX = (NodoLg) nodoX.getLiga();
-            numNodo++;
 
         }
 
@@ -259,10 +257,10 @@ public class Lg extends LSL {
         while (!nodosStack.isEmpty()) {
 
             nodoX = nodosStack.pop();
-            numNodo = numNodos.pop();
+            spacingX = nodoSpacing.pop();
 
             subLg = (Lg) nodoX.getDato();
-            subLg.consLgRepr(lines, spacing + (6 + 3 * fieldWidth) * numNodo + fieldWidth + 4, currentLine,
+            subLg.consLgRepr(lines, spacingX, currentLine,
                     fieldWidth);
 
         }
@@ -307,7 +305,7 @@ public class Lg extends LSL {
     }
 
     /**
-     * Retorna un la representación gráfica de esta list generalizada.
+     * Retorna la representación gráfica de esta lista generalizada.
      * 
      * @param fieldWidth Ancho de los campos de los nodos.
      * @return Representación en forma de String.
@@ -339,13 +337,13 @@ public class Lg extends LSL {
 
     public static void main(String[] args) {
 
-        Lg A = consLg("((a, b, c, d), (a, (a, b, c, d), f, (a, b, c, d)), x, (a, b, c, d))");
+        Lg A = consLg("((a, b, c, def), (a, (a, b, c, d), f, (a, b, c, d)), xxx, (a, b, c, d))");
 
         A.show();
 
         System.out.println();
 
-        A.showAsLgRepr(2);
+        A.showAsLgRepr(0);
 
     }
 

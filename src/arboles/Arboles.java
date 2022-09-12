@@ -11,10 +11,9 @@ public class Arboles {
 
     /**
      * Comprueba si el string dado como parámetro es un string válido que repreenta
-     * un árbol.Si no es válido arrojará una excepción.
+     * un árbol. Si no es válido arrojará una excepción.
      * 
      * @param arbolStr String a validar
-     * @param esBinario
      * @throws Exception Si el string no es una representación válida de un árbol.
      */
     public static void validateString(String arbolStr, boolean esBinario) throws Exception {
@@ -90,45 +89,20 @@ public class Arboles {
         }
     }
 
-    public static ArbolBinarioEnVector consABV(String arbolStr) throws Exception {
-
-        validateString(arbolStr, true);
-
-        ArbolBinarioEnVector A = new ArbolBinarioEnVector();
-
-        ArbolBinarioEnVector.consABV(A, arbolStr, new AtomicInteger(0), -1);
-
-        return A;
-    }
-
+    /**
+     * Válida y construye un árbol y sus subárboles recursivamente a partir del
+     * String entregado como parámetro.
+     * 
+     * @param arbolStr String que representa el árbol a construir.
+     * @return {@link ArbolLg} que representa el String dado.
+     * @throws Exception Si el String <b>arbolStr</b> tiene patrones inválidos.
+     */
     public static ArbolLg consArbolLg(String arbolStr) throws Exception {
 
         validateString(arbolStr, false);
 
         return ArbolLg.consArbolLg(arbolStr, new AtomicInteger());
 
-    }
-
-    public static ArbolLL consArbolLL(String arbolStr) throws Exception {
-
-        validateString(arbolStr, false);
-
-        return ArbolLL.consArbolLL(arbolStr, new AtomicInteger());
-
-    }
-
-    public static ArbolBinarioLL consArbolBinarioLL(String arbolStr) throws Exception {
-
-        validateString(arbolStr, true);
-
-        return ArbolBinarioLL.consArbolBinario(arbolStr, new AtomicInteger());
-
-    }
-
-    public static ArbolAVL consArbolAVL(String arbolStr) throws Exception {
-
-        validateString(arbolStr, false);
-        return ArbolAVL.consArbolAVL(arbolStr, new AtomicInteger());
     }
 
 }

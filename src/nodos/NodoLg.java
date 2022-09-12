@@ -1,4 +1,7 @@
-package nodos;
+﻿package nodos;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Clase que representa un nodo con 3 campos para las listas generalizadas.
@@ -43,6 +46,46 @@ public class NodoLg extends NodoSimple {
 
 	public void setSw(int sw) {
 		this.sw = sw;
+	}
+
+	public List<StringBuilder> nodeRepr(boolean showLiga, int fieldWidth) {
+
+		StringBuilder topLine, line, bottomLine;
+
+		String sw, d, l;
+
+		sw = Integer.toString(getSw());
+		d = (getSw() == 1) ? " " : (getDato() == null) ? " " : getDato().toString();
+		l = (getLiga() == null) ? "¬" : (showLiga ? "@" + Integer.toHexString(getLiga().hashCode()) : " ");
+
+		if (fieldWidth == 0) {
+
+			fieldWidth = getMinFieldWidth(showLiga);
+
+		}
+
+		topLine = new StringBuilder(("┬" + "─".repeat(fieldWidth)).repeat(3));
+		topLine.replace(0, 1, "┌").append("┐");
+
+		line = new StringBuilder(("│%" + fieldWidth + "s").repeat(3));
+		line.append("│");
+		line = new StringBuilder(String.format(line.toString(), sw, d, l));
+
+		bottomLine = new StringBuilder(("┴" + "─".repeat(fieldWidth)).repeat(3));
+		bottomLine.replace(0, 1, "└").append("┘");
+
+		return Arrays.asList(topLine, line, bottomLine);
+
+	}
+
+	public int getMinFieldWidth(boolean withLiga) {
+
+		return Math.max(1,
+				Math.max(
+						(getSw() == 1) ? 0 : (getDato() == null) ? 0 : getDato().toString().length(),
+						(withLiga ? (getLiga() == null ? 1 : Integer.toHexString(getLiga().hashCode()).length() + 1)
+								: 0)));
+
 	}
 
 	@Override
